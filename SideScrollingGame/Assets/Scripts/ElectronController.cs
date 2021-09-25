@@ -19,7 +19,9 @@ public class ElectronController : MonoBehaviour
     [SerializeField]private Transform collisionCheck;
     [SerializeField]private Vector2 collisionSize;
     [SerializeField]private LayerMask stageMask;
+    [SerializeField]private int maxAirJump;
     private Vector3 currentVelocity = Vector3.zero;
+    private int AirJumpTime = 0;
 
     void Start()
     {
@@ -46,13 +48,21 @@ public class ElectronController : MonoBehaviour
                 isCollided = true;
             }
         }
+
+
+        //空中ジャンプ判定
+        if(isGrounded){
+            AirJumpTime = 0;
+        }
     }
 
     public void Move(float move, bool jump){
         Vector2 targetVelocity = new Vector2(move + rightForce, rigid.velocity.y); 
         rigid.velocity = targetVelocity;//Vector3.SmoothDamp(rigid.velocity, targetVelocity, ref currentVelocity, smoothTime);
-        if(isGrounded && jump){
+        if(jump && AirJumpTime < maxAirJump - 1){
+
             rigid.AddForce(new Vector2(0f, jumpForce));
+            AirJumpTime++;
         }
     }
     void Update()
