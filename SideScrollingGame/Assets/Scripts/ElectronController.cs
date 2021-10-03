@@ -16,8 +16,6 @@ public class ElectronController : MonoBehaviour
 
     [SerializeField]private Transform groundCheck;
     [SerializeField]private float groundedRadius;
-    [SerializeField]private Transform collisionCheck;
-    [SerializeField]private Vector2 collisionSize;
     [SerializeField]private LayerMask stageMask;
     [SerializeField]private int maxAirJump;
     private Vector3 currentVelocity = Vector3.zero;
@@ -41,6 +39,7 @@ public class ElectronController : MonoBehaviour
 
 
         //衝突判定
+        /*
         isCollided = false;
         colliders = Physics2D.OverlapBoxAll(collisionCheck.position, collisionSize, stageMask);
         for(int i = 0; i < colliders.Length; i++){
@@ -48,6 +47,7 @@ public class ElectronController : MonoBehaviour
                 isCollided = true;
             }
         }
+        */
 
 
         //空中ジャンプ判定
@@ -70,14 +70,21 @@ public class ElectronController : MonoBehaviour
         float movement = Input.GetAxis("Horizontal") * moveSpeed;
         bool jump = Input.GetButtonDown("Jump");
         Move(movement, jump);
-        if(isCollided) Debug.Log("collision!!!");
+        
     }
 
+    void OnCollisionEnter2D(Collision2D coll) {
+        if(coll.gameObject.tag == "Obstacle"){
+            Debug.Log("collision");
+            isCollided = true;
+        }
+    }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, groundedRadius);
-        Gizmos.DrawWireCube(collisionCheck.position, collisionSize);
     }
+
+
 }
