@@ -43,3 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Obstable
+    uniqueID: 2224984265
+    locked: 0
+  - name: UI
+    uniqueID: 1809657787
+    locked: 0
