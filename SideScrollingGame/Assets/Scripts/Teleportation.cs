@@ -23,7 +23,7 @@ public class Teleportation : MonoBehaviour
 
     public GameObject[] DeleteBlocks(){
         GameObject[] array = new GameObject[]{};
-        Collider2D[] Inheritcolliders = Physics2D.OverlapBoxAll(camera.transform.position, new Vector2(20f, 50f), 0f);
+        Collider2D[] Inheritcolliders = Physics2D.OverlapBoxAll(camera.transform.position, new Vector2(20f, 100f), 0f);
         foreach(Collider2D coll in Inheritcolliders){
             if(coll.gameObject.tag == "Obstacle"){
                 Array.Resize(ref array, array.Length + 1);
